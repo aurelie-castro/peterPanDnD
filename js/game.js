@@ -20,6 +20,8 @@ let config = {
 
 // Déclaration de nos variables globales
 let game = new Phaser.Game(config);
+var nextArrow;
+let successfulDropoff;
 
 //
 function init() {
@@ -34,6 +36,8 @@ function preload() {
     this.load.image('handR', './assets/pArmR-01.png');
     this.load.image('legL', './assets/pLegL-01.png');
     this.load.image('legR', './assets/pLegR-01.png');
+    
+    this.load.image('nextArrow', './assets/purple-arrow.png');
 
 }
 
@@ -47,6 +51,12 @@ function create() {
 //    head.setScale(2);
     head.setName('head');
 //    head.setScale(0.45);
+    
+    successfulDropoff = 0;
+    
+    nextArrow = this.add.image(300, 550, 'nextArrow');
+    nextArrow.setScale(0.7);
+    nextArrow.setVisible(false);
     
     var body = this.add.image(60, 550, 'body', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(body);
@@ -197,6 +207,8 @@ function create() {
             gameObject.input.enabled = false;
             console.log(dropZone.name == gameObject.name);
             console.log('successful dropoff of ' + gameObject.name + ' in ' + dropZone.name);
+            
+            successfulDropoff++;
         }
 else{
             gameObject.x = gameObject.input.dragStartX;
@@ -219,7 +231,13 @@ else{
 //        graphics.lineStyle(2, 0xffff00);
 //        graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
         
+      if(successfulDropoff === 6){
+            console.log("well done!!!!");
+            nextArrow.setVisible(true);
+            nextArrow.setInteractive();
+    }    
         
+        nextArrow.on('pointerdown', onClick);
 
     });
     
@@ -246,5 +264,10 @@ else{
 
 
 function update() {
+
+}
+function onClick(){
+//    window.open("https://www.google.com", "_blank");
+    window.location.replace("http://www.w3schools.com");
 
 }
