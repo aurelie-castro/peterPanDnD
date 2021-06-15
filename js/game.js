@@ -23,6 +23,13 @@ let game = new Phaser.Game(config);
 var nextArrow;
 let successfulDropoff;
 
+var holdSound;
+
+var wrongSound;
+
+var correctSound;
+
+var finishSound;
 //
 function init() {
 }
@@ -38,12 +45,22 @@ function preload() {
     this.load.image('legR', './assets/pLegR-01.png');
     
     this.load.image('nextArrow', './assets/purple-arrow.png');
+    
+    this.load.audio('hold', './assets/hold.wav');
+    this.load.audio('wrong', './assets/wrong.wav');
+    this.load.audio('correct', './assets/correct.wav');
+    this.load.audio('finish', './assets/finish.wav');
 
 }
 
 function create() {    
     var image = this.add.image(200, 250, 'background');
     image.alpha = 0.3;
+    
+    holdSound = this.sound.add('hold');
+    wrongSound = this.sound.add('wrong');
+    correctSound = this.sound.add('correct');
+    finishSound = this.sound.add('finish');
     
     //----les membres-----
     var head = this.add.image(50, 380, 'head', Phaser.Math.RND.pick(frames)).setInteractive();
@@ -129,6 +146,7 @@ function create() {
     this.input.on('dragstart', function (pointer, gameObject) {
 
         this.children.bringToTop(gameObject);
+        holdSound.play();
 
     }, this);
 
@@ -165,11 +183,14 @@ function create() {
             console.log('successful dropoff of ' + gameObject.name + ' in ' + dropZone.name);
             
             successfulDropoff++;
+            correctSound.play();
         }
 else{
             gameObject.x = gameObject.input.dragStartX;
             gameObject.y = gameObject.input.dragStartY;
             console.log('failed dropoff of ' + gameObject.name + ' in ' + dropZone.name);
+    
+            wrongSound.play();
         }
         
 
@@ -187,6 +208,7 @@ else{
             console.log("well done!!!!");
             nextArrow.setVisible(true);
             nextArrow.setInteractive();
+          finishSound.play();
     }    
         
         nextArrow.on('pointerdown', onClick);
