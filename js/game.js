@@ -30,6 +30,8 @@ var wrongSound;
 var correctSound;
 
 var finishSound;
+
+var star;
 //
 function init() {
 }
@@ -50,10 +52,21 @@ function preload() {
     this.load.audio('wrong', './assets/wrong.wav');
     this.load.audio('correct', './assets/correct.wav');
     this.load.audio('finish', './assets/finish.wav');
+    
+    //---star at the end---
+    this.load.image('star', './assets/purple-star.png');
 
 }
 
 function create() {    
+    
+     //---star---
+    star = this.add.image(90,530, 'star');
+    star.setScale(0.2);
+    star.setVisible(false);
+    star.setDepth(0);
+    
+    
     var image = this.add.image(200, 250, 'background');
     image.alpha = 0.3;
     
@@ -80,12 +93,12 @@ function create() {
     body.setName('body');
 //    body.setScale(0.45);
     
-    var handL = this.add.image(310, 392, 'handL', Phaser.Math.RND.pick(frames)).setInteractive();
+    var handL = this.add.image(310, 92, 'handL', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(handL);
     handL.setName('handL');
 //    handL.setScale(0.45);
     
-    var handR = this.add.image(260, 522, 'handR', Phaser.Math.RND.pick(frames)).setInteractive();
+    var handR = this.add.image(200, 552, 'handR', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(handR);
     handR.setName('handR');
 //    hips.setScale(0.45);
@@ -95,7 +108,7 @@ function create() {
     legL.setName('legL');
 //    legL.setScale(0.45);
     
-    var legR = this.add.image(310, 302, 'legR', Phaser.Math.RND.pick(frames)).setInteractive();
+    var legR = this.add.image(310, 570, 'legR', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(legR);
     legR.setName('legR');
 //    legR.setScale(0.45);
@@ -128,19 +141,19 @@ function create() {
     
     
     //  Just a visual display of the drop zone
-    var graphics = this.add.graphics();
-    graphics.lineStyle(2, 0xffff00);
-    graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-    
-    graphics.strokeRect(zone2.x - zone2.input.hitArea.width / 2, zone2.y - zone2.input.hitArea.height / 2, zone2.input.hitArea.width, zone2.input.hitArea.height);
-    
-    graphics.strokeRect(zone3.x - zone3.input.hitArea.width / 2, zone3.y - zone3.input.hitArea.height / 2, zone3.input.hitArea.width, zone3.input.hitArea.height);
-    
-    graphics.strokeRect(zone4.x - zone4.input.hitArea.width / 2, zone4.y - zone4.input.hitArea.height / 2, zone4.input.hitArea.width, zone4.input.hitArea.height);
-    
-    graphics.strokeRect(zone5.x - zone5.input.hitArea.width / 2, zone5.y - zone5.input.hitArea.height / 2, zone5.input.hitArea.width, zone5.input.hitArea.height);
-    
-    graphics.strokeRect(zone6.x - zone6.input.hitArea.width / 2, zone6.y - zone6.input.hitArea.height / 2, zone6.input.hitArea.width, zone6.input.hitArea.height);
+//    var graphics = this.add.graphics();
+//    graphics.lineStyle(2, 0xffff00);
+//    graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+//    
+//    graphics.strokeRect(zone2.x - zone2.input.hitArea.width / 2, zone2.y - zone2.input.hitArea.height / 2, zone2.input.hitArea.width, zone2.input.hitArea.height);
+//    
+//    graphics.strokeRect(zone3.x - zone3.input.hitArea.width / 2, zone3.y - zone3.input.hitArea.height / 2, zone3.input.hitArea.width, zone3.input.hitArea.height);
+//    
+//    graphics.strokeRect(zone4.x - zone4.input.hitArea.width / 2, zone4.y - zone4.input.hitArea.height / 2, zone4.input.hitArea.width, zone4.input.hitArea.height);
+//    
+//    graphics.strokeRect(zone5.x - zone5.input.hitArea.width / 2, zone5.y - zone5.input.hitArea.height / 2, zone5.input.hitArea.width, zone5.input.hitArea.height);
+//    
+//    graphics.strokeRect(zone6.x - zone6.input.hitArea.width / 2, zone6.y - zone6.input.hitArea.height / 2, zone6.input.hitArea.width, zone6.input.hitArea.height);
 
  
     this.input.on('dragstart', function (pointer, gameObject) {
@@ -159,17 +172,17 @@ function create() {
 
     this.input.on('dragenter', function (pointer, gameObject, dropZone) {
 
-        graphics.clear();
-        graphics.lineStyle(2, 0x00ffff);
-        graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-        console.log(gameObject.name);
+//        graphics.clear();
+//        graphics.lineStyle(2, 0x00ffff);
+//        graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+//        console.log(gameObject.name);
 
     });
 
     this.input.on('dragleave', function (pointer, gameObject, dropZone) {
-        graphics.clear();
-        graphics.lineStyle(2, 0xffff00);
-        graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+//        graphics.clear();
+//        graphics.lineStyle(2, 0xffff00);
+//        graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
 
     });
 
@@ -209,6 +222,7 @@ else{
             nextArrow.setVisible(true);
             nextArrow.setInteractive();
           finishSound.play();
+          star.setVisible(true);
     }    
         
         nextArrow.on('pointerdown', onClick);
