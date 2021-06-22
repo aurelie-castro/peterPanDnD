@@ -32,6 +32,10 @@ var correctSound;
 var finishSound;
 
 var star;
+var starScale;
+
+var gameBg;
+
 //
 function init() {
 }
@@ -55,14 +59,22 @@ function preload() {
     
     //---star at the end---
     this.load.image('star', './assets/purple-star.png');
+    
+     //---background pattern---
+    this.load.image('gameBg', './assets/stars (1)-01.png');
 
 }
 
-function create() {    
+function create() { 
+    
+    gameBg = this.add.image(180, 330, 'gameBg');
+    gameBg.setScale(0.4);
+    gameBg.setVisible(false);
     
      //---star---
+    starScale = 0.1;
     star = this.add.image(90,530, 'star');
-    star.setScale(0.2);
+    star.setScale(starScale);
     star.setVisible(false);
     star.setDepth(0);
     
@@ -138,22 +150,6 @@ function create() {
     //  A drop zone
     var zone6 = this.add.zone(270, 230, 40, 130).setRectangleDropZone(40, 130);
     zone6.setName('handR');
-    
-    
-    //  Just a visual display of the drop zone
-//    var graphics = this.add.graphics();
-//    graphics.lineStyle(2, 0xffff00);
-//    graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-//    
-//    graphics.strokeRect(zone2.x - zone2.input.hitArea.width / 2, zone2.y - zone2.input.hitArea.height / 2, zone2.input.hitArea.width, zone2.input.hitArea.height);
-//    
-//    graphics.strokeRect(zone3.x - zone3.input.hitArea.width / 2, zone3.y - zone3.input.hitArea.height / 2, zone3.input.hitArea.width, zone3.input.hitArea.height);
-//    
-//    graphics.strokeRect(zone4.x - zone4.input.hitArea.width / 2, zone4.y - zone4.input.hitArea.height / 2, zone4.input.hitArea.width, zone4.input.hitArea.height);
-//    
-//    graphics.strokeRect(zone5.x - zone5.input.hitArea.width / 2, zone5.y - zone5.input.hitArea.height / 2, zone5.input.hitArea.width, zone5.input.hitArea.height);
-//    
-//    graphics.strokeRect(zone6.x - zone6.input.hitArea.width / 2, zone6.y - zone6.input.hitArea.height / 2, zone6.input.hitArea.width, zone6.input.hitArea.height);
 
  
     this.input.on('dragstart', function (pointer, gameObject) {
@@ -223,6 +219,7 @@ else{
             nextArrow.setInteractive();
           finishSound.play();
           star.setVisible(true);
+          gameBg.setVisible(true);
     }    
         
         nextArrow.on('pointerdown', onClick);
@@ -234,7 +231,12 @@ else{
 
 
 function update() {
-
+    if(successfulDropoff === 6){
+         starScale += 0.001;
+        star.setScale(starScale);
+        if (starScale > 0.2){
+            starScale = 0.2;
+        } }
 }
 function onClick(){
 //    window.open("https://www.google.com", "_blank");
