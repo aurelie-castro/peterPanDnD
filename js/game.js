@@ -168,17 +168,9 @@ function create() {
 
     this.input.on('dragenter', function (pointer, gameObject, dropZone) {
 
-//        graphics.clear();
-//        graphics.lineStyle(2, 0x00ffff);
-//        graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-//        console.log(gameObject.name);
-
     });
 
     this.input.on('dragleave', function (pointer, gameObject, dropZone) {
-//        graphics.clear();
-//        graphics.lineStyle(2, 0xffff00);
-//        graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
 
     });
 
