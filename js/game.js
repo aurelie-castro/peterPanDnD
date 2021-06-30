@@ -36,12 +36,17 @@ var starScale;
 
 var gameBg;
 
+var gameCover;
+var startClicked;
+
 //
 function init() {
 }
 
 function preload() {
     this.load.image('background', './assets/peterpanFull-01.png');
+    
+    this.load.image('cover', './assets/peterCOVER-01.png');
     
     this.load.image('head', './assets/pHead-01.png');
     this.load.image('body', './assets/pBody-01.png');
@@ -69,6 +74,8 @@ function preload() {
 }
 
 function create() { 
+    gameCover = this.add.image(180, 320, 'cover');
+    gameCover.setDepth(5);
     
     gameBg = this.add.image(180, 330, 'gameBg');
     gameBg.setScale(0.4);
@@ -164,8 +171,10 @@ function create() {
  
     this.input.on('dragstart', function (pointer, gameObject) {
 
+         if (startClicked === true){
         this.children.bringToTop(gameObject);
-        holdSound.play();
+              holdSound.play();
+         }
 
     }, this);
 
@@ -224,9 +233,17 @@ else{
           gameBg.setVisible(true);
     }    
         
-        nextArrow.on('pointerdown', onClick);
 
     });
+            nextArrow.on('pointerdown', onClick);
+    
+         this.input.on('pointerdown', function(pointer){
+        if(pointer.x >= 55 && pointer.x <= 432  && pointer.y >= 380 && pointer.y <=473){
+//            console.log("cliqué sur start");
+            startClicked = true;
+//            sessionStorage.setItem("start clicked", "yes");
+            gameCover.setVisible(false);
+}});
     
 
 }
@@ -246,7 +263,7 @@ function update() {
 }
 function onClick(){
 //    window.open("https://www.google.com", "_blank");
-    window.location.replace("http://www.w3schools.com");
+    window.location.replace("https://games.caramel.be/tinker-bell/index.html");
 
 }
 function enableMusic(){
