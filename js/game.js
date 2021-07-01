@@ -13,7 +13,7 @@ let config = {
     },
     backgroundColor: '#cea7d2',
     audio: {
-        disableWebAudio: true
+        disableWebAudio: false
     },
     autoCenter: true
 };
@@ -107,9 +107,7 @@ function create() {
     //----les membres-----
     var head = this.add.image(50, 380, 'head', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(head);
-//    head.setScale(2);
     head.setName('head');
-//    head.setScale(0.45);
     
     successfulDropoff = 0;
     
@@ -120,27 +118,22 @@ function create() {
     var body = this.add.image(60, 550, 'body', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(body);
     body.setName('body');
-//    body.setScale(0.45);
     
     var handL = this.add.image(310, 92, 'handL', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(handL);
     handL.setName('handL');
-//    handL.setScale(0.45);
     
     var handR = this.add.image(200, 552, 'handR', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(handR);
     handR.setName('handR');
-//    hips.setScale(0.45);
     
     var legL = this.add.image(50, 212, 'legL', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(legL);
     legL.setName('legL');
-//    legL.setScale(0.45);
     
     var legR = this.add.image(310, 570, 'legR', Phaser.Math.RND.pick(frames)).setInteractive();
     this.input.setDraggable(legR);
     legR.setName('legR');
-//    legR.setScale(0.45);
     
     //-----les drop zones----
     //  A drop zone
@@ -199,8 +192,6 @@ function create() {
             gameObject.y = dropZone.y;
 
             gameObject.input.enabled = false;
-            console.log(dropZone.name == gameObject.name);
-            console.log('successful dropoff of ' + gameObject.name + ' in ' + dropZone.name);
             
             successfulDropoff++;
             correctSound.play();
@@ -208,7 +199,6 @@ function create() {
 else{
             gameObject.x = gameObject.input.dragStartX;
             gameObject.y = gameObject.input.dragStartY;
-            console.log('failed dropoff of ' + gameObject.name + ' in ' + dropZone.name);
     
             wrongSound.play();
         }
@@ -225,7 +215,6 @@ else{
         }
         
       if(successfulDropoff === 6){
-            console.log("well done!!!!");
             nextArrow.setVisible(true);
             nextArrow.setInteractive();
           finishSound.play();
@@ -239,9 +228,7 @@ else{
     
          this.input.on('pointerdown', function(pointer){
         if(pointer.x >= 55 && pointer.x <= 432  && pointer.y >= 380 && pointer.y <=473){
-//            console.log("cliqué sur start");
             startClicked = true;
-//            sessionStorage.setItem("start clicked", "yes");
             gameCover.setVisible(false);
 }});
     
@@ -262,7 +249,6 @@ function update() {
         }
 }
 function onClick(){
-//    window.open("https://www.google.com", "_blank");
     window.location.replace("https://games.caramel.be/tinker-bell/index.html");
 
 }
